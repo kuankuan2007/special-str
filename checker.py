@@ -11,7 +11,7 @@ See the Mulan PSL v2 for more details.
 """
 import re
 from typing import List,Dict,Tuple
-__all__=["UrlChecker","PathChecker","EmailChecker","Checker"]
+__all__=["UrlChecker","PathChecker","EmailChecker","Checker","VersionChecker"]
 class Checker(object):
     tester=[] #type: List[re.Pattern]
     finder={} #type: Dict[Tuple[str,...],re.Pattern]
@@ -39,4 +39,11 @@ class EmailChecker(Checker):
         (
             "user","domain"
         ):re.compile(r"^([\w.%+-]+)@((?:[^/\\\.&\?\#]+\.)+[^/\\\.&\?\#]+)$")
+    }
+class VersionChecker(Checker):
+    tester=[re.compile(r"^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-(?:(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?:[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$")]
+    finder={
+        (
+            "major","minor","patch","preRelease","buildMetadata"
+        ):re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$")
     }

@@ -1,2 +1,0 @@
-class Url:
-    sheme:str

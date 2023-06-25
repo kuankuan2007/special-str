@@ -14,7 +14,7 @@ from .checker import *
 from typing import Any, Dict,List,Union,Tuple,Union
 from typing_extensions import Literal
 import copy
-__all__=["Url","Path","Email"]
+__all__=["Url","Path","Email","Version"]
 class SpecialStr(str):
     checker=Checker() #type: Checker
     def __new__(cls, value):
@@ -130,3 +130,19 @@ class Email(SpecialStr):
     checker=EmailChecker()
     user="" #type: str
     domain="" #type: str
+class Version(SpecialStr):
+    """
+    ## Represents a semantic version(see https://semver.org/)
+    Attributes:
+        - major: The major version
+        - minor: The minor version
+        - patch: The patch version
+        - preRelease: The pre-release version
+        - buildMetadata: The build metadata
+    """
+    checker=VersionChecker()
+    major="" #type: str
+    minor="" #type: str
+    patch="" #type: str
+    preRelease="" #type: str
+    buildMetadata="" #type: str
